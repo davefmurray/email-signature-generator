@@ -11,9 +11,9 @@ export interface SignatureData {
 export function generateSignatureHtml(data: SignatureData): string {
   const { name, title, company, phone, twitter, websiteUrl, logoUrl } = data;
 
-  // Build the title/company line
+  // Build the title/company line with comma separator
   const titleParts = [title, company].filter(Boolean);
-  const titleLine = titleParts.join(' • ');
+  const titleLine = titleParts.join(', ');
 
   // Build the contact line
   const contactParts = [];

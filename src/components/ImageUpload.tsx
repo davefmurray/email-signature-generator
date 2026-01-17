@@ -106,45 +106,36 @@ export default function ImageUpload({ logoUrl, onUpload, onClear }: ImageUploadP
 
   if (logoUrl) {
     return (
-      <div className="space-y-1.5">
-        <label className="block text-sm font-medium text-[var(--foreground)]">
-          Logo
-        </label>
-        <div className="flex items-center gap-4">
-          <div className="relative">
-            <img
-              src={logoUrl}
-              alt="Uploaded logo"
-              className="w-16 h-16 rounded-lg object-cover border border-[var(--border)]"
-            />
-          </div>
-          <button
-            type="button"
-            onClick={onClear}
-            className="px-4 py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] border border-[var(--border)] rounded-xl hover:border-[var(--accent)] transition-colors"
-          >
-            Remove
-          </button>
-        </div>
+      <div className="flex items-center gap-4 p-4 bg-[var(--input)] border border-[var(--border)] rounded-2xl">
+        <img
+          src={logoUrl}
+          alt="Uploaded logo"
+          className="w-14 h-14 rounded-lg object-cover"
+        />
+        <div className="flex-1 text-sm text-[var(--muted)]">Logo uploaded</div>
+        <button
+          type="button"
+          onClick={onClear}
+          className="px-4 py-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)] bg-white border border-[var(--border)] rounded-xl hover:bg-[var(--border)] transition-colors"
+        >
+          Remove
+        </button>
       </div>
     );
   }
 
   return (
-    <div className="space-y-1.5">
-      <label className="block text-sm font-medium text-[var(--foreground)]">
-        Logo
-      </label>
+    <div>
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onClick={handleClick}
         className={`
-          relative border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors
+          relative border border-dashed rounded-2xl p-5 text-center cursor-pointer transition-colors
           ${isDragging
-            ? 'border-[var(--accent)] bg-[var(--accent)]/5'
-            : 'border-[var(--border)] hover:border-[var(--accent)]'
+            ? 'border-[var(--foreground)] bg-[var(--input)]'
+            : 'border-[var(--border)] bg-[var(--input)] hover:border-[var(--muted)]'
           }
           ${isUploading ? 'pointer-events-none opacity-60' : ''}
         `}
@@ -158,25 +149,23 @@ export default function ImageUpload({ logoUrl, onUpload, onClear }: ImageUploadP
         />
 
         {isUploading ? (
-          <div className="flex flex-col items-center gap-2">
-            <svg className="animate-spin h-8 w-8 text-[var(--accent)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <div className="flex items-center justify-center gap-3">
+            <svg className="animate-spin h-5 w-5 text-[var(--muted)]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
             <span className="text-sm text-[var(--muted)]">Uploading...</span>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--muted)]">
+          <div className="flex items-center justify-center gap-2 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--muted)]">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
               <circle cx="8.5" cy="8.5" r="1.5"></circle>
               <polyline points="21 15 16 10 5 21"></polyline>
             </svg>
-            <div className="text-sm">
-              <span className="text-[var(--accent)] font-medium">Click to upload</span>
-              <span className="text-[var(--muted)]"> or drag and drop</span>
-            </div>
-            <span className="text-xs text-[var(--muted)]">Square images only (e.g., 200x200)</span>
+            <span className="text-[var(--muted)]">
+              Upload logo <span className="text-[var(--muted)]/70">(square, optional)</span>
+            </span>
           </div>
         )}
       </div>
